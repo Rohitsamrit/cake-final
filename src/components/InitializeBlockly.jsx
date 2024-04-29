@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import "blockly/blocks";
 import { javascriptGenerator } from "blockly/javascript";
 import { store } from "../store/store.js";
-import {
+import { 
   addIngredient,
-  getIngredient,
+  // getIngredient,
   setY,
   goTo,
   goToXY,

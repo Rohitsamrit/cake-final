@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // Initial state of the sprite
+ 
 const initialState = {
   position: { x: 150, y: 100 }, // Assuming default position
   angle: 0,
@@ -11,6 +12,8 @@ const initialState = {
   ingredients: [], // Array to store ingredients
   mixedIngredient: "",
 };
+
+
 
 // Create the slice
 export const motionSlice = createSlice({
@@ -25,11 +28,11 @@ export const motionSlice = createSlice({
 
         // Update the cakeDiv to display the new ingredient
         const ingredientsHTML = state.ingredients
-          .map((ingredient) => `<li>${ingredient}</li>`)
+          .map((ingredient) => `<img src="./public/${ingredient}.jpg" alt="Not Found" width="2000" height="1500">`)
           .join("");
-        document.getElementById(
-          "cakeDiv"
-        ).innerHTML = `<h1>Ingredients:</h1><ul>${ingredientsHTML}</ul>`;
+          document.getElementById(
+            "cakeDiv"
+          ).innerHTML = `<h1>Ingredients:</h1><ul>${ingredientsHTML}</ul>`;
       },
       prepare: (ingredient) => ({ payload: { ingredient } }),
     },
@@ -38,8 +41,11 @@ export const motionSlice = createSlice({
       reducer: (state, action) => {
         const canvasElement = document.getElementById("cakeDiv");
         if (canvasElement) {
-          canvasElement.innerHTML =
-            '<img src="https://c.ndtvimg.com/gws/5674/assets/4.jpeg?1651561595" alt="Egg" width="2000" height="1500">';
+          canvasElement.innerHTML = '<video width="100" height="100" autoplay loop muted><source src="./mix.mp4" type="video/mp4">Your browser does not support the video tag.</video>';
+
+
+;
+
           console.log("Mixing ingredient...");
           // Additional logic related to mixing ingredients can be added here if needed
         } else {
@@ -49,7 +55,7 @@ export const motionSlice = createSlice({
       prepare: () => ({}), // No need to pass any parameters for mixing ingredients
     },
 
-    getIngredient: {
+    setX: {
       reducer: (state, action) => {
         // Retrieve all stored ingredients from the state
         const storedIngredients = state.ingredients;
@@ -62,21 +68,14 @@ export const motionSlice = createSlice({
           .join("");
         document.getElementById(
           "cakeDiv"
-        ).innerHTML = `<h1>All Ingredients:</h1><ul>${ingredientsHTML}</ul>`;
+        ).innerHTML = `<h1>All Stored Ingredients:</h1><ul>${ingredientsHTML}</ul>`;
       },
       prepare: () => ({}), // No need to pass any parameters for setting X
-    },
-
-    turnLeft: {
-      reducer: (state, action) => {
-        document.getElementById("cakeDiv").innerHTML = "<h1>Cake Baked</h1>";
-      },
-      prepare: (angle) => ({ payload: { angle } }),
     },
     setY: {
       reducer: (state, action) => {
         //state.position.x = action.payload.rightSteps;
-        document.getElementById("cakeDiv").innerHTML = "<h1>Mix Ingredent</h1>";
+        document.getElementById("cakeDiv").innerHTML = '<img src=""C:/Users/Asus/Downloads/egg.jpg"" alt="Egg">';
         state.position.y = action.payload.upSteps;
       },
       prepare: (upSteps) => ({ payload: { upSteps } }),
@@ -123,6 +122,12 @@ export const motionSlice = createSlice({
       prepare: (x, y) => ({ payload: { x, y } }),
     },
 
+    turnLeft: {
+      reducer: (state, action) => {
+        document.getElementById("cakeDiv").innerHTML = "<h1>Cake Baked</h1>";
+      },
+      prepare: (angle) => ({ payload: { angle } }),
+    },
     pointInDirection: {
       reducer: (state, action) => {
         if (action.payload.angle == -1) {
@@ -195,7 +200,7 @@ export const motionSlice = createSlice({
 
 export const {
   addIngredient,
-  getIngredient,
+  setX,
   setY,
   goTo,
   goToXY,
@@ -208,7 +213,7 @@ export const {
   changeY,
   ifOnEdgeBounce,
   glideSecsXY,
-  done,
+  done
 } = motionSlice.actions;
 
 // export default motionSlice.reducer;
