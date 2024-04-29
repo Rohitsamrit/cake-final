@@ -94,8 +94,8 @@ const BlocklyComponent = () => {
     dispatch(setCode({ jsCode, pythonCode }));
 
     // Display both JavaScript and Python code
-    console.log("JavaScript Code:", jsCode);
-    console.log("Python Code:", pythonCode);
+    // console.log("JavaScript Code:", jsCode);
+    // console.log("Python Code:", pythonCode);
   };
 
   const toggleLanguage = (selectedLanguage) => {

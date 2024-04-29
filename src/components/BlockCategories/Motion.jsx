@@ -6,25 +6,12 @@ export const Motion = `
   <category name="Cake Blocks" colour="#5c81a6">
     <block type="add_ingredient"></block>
     <block type="mix_ingredient"></block>
-    <block type="turn_left"></block>
+    <block type="Bake Cake"></block>
     <block type="get_Ingredient"></block>
     
   </category>
 `;
 
-// Block Injection
-
-// <block type="setyto"></block>
-// <block type="if_on_edge_bounce"></block>
-// <block type="set_rotation_style"></block>
-// <block type="point_in_direction"></block>
-// <block type="point_toward_menu"></block>
-// <block type="go_to_menu"></block>
-// <block type="go_to_xy"></block>
-// <block type="glidesecstoxy"></block>
-// <block type="glidesecstomenu"></block>
-// <block type="changexby"></block>
-// <block type="changeyby"></block>
 Blockly.Blocks["add_ingredient"] = {
   init: function () {
     this.appendDummyInput()
@@ -62,9 +49,12 @@ Blockly.Blocks["get_Ingredient"] = {
     this.setColour(230);
   },
 };
-Blockly.Blocks["turn_left"] = {
+Blockly.Blocks["Bake Cake"] = {
   init: function () {
-    this.appendDummyInput().appendField("Bake Cake");
+    this.appendDummyInput()
+      .appendField("Bake Cake")
+      .appendField(new Blockly.FieldTextInput("180"), "DEGREES")
+      .appendField("°C");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -113,18 +103,6 @@ Blockly.Blocks["go_to_menu"] = {
     this.setColour(230);
   },
 };
-
-// javascriptGenerator['go_to_menu'] = function(block) {
-//   const destination = block.getFieldValue('DESTINATION');
-//   let code = '';
-//   if (destination === 'mouse_pointer') {
-//     // Generate code to dispatch the moveSpriteToMousePointer thunk
-//     code = 'store.dispatch(moveSpriteToMousePointer());\n';
-//   }
-
-//   console.log(code);
-//   return code;
-// }
 
 Blockly.Blocks["go_to_xy"] = {
   init: function () {
@@ -253,25 +231,22 @@ javascriptGenerator["mix_ingredient"] = function (block) {
 };
 
 javascriptGenerator["get_Ingredient"] = function (block) {
- 
-  const code = `store.dispatch(getIngredient())`;
+  const code = `store.dispatch(getIngredients())`;
   console.log(code);
   return code;
 };
-// JavaScript code generator for 'turn_left' block
-javascriptGenerator["turn_left"] = function (block) {
-  const degrees = block.getFieldValue("DEGREES");
-  const code = `store.dispatch(turnLeft(${degrees}));
-`;
+// JavaScript code generator for 'Bake Cake' block
+javascriptGenerator["Bake Cake"] = function (block) {
+  const temp = block.getFieldValue("DEGREES");
+  // const temp = block.getFieldValue("TEMP");
+  const code = `store.dispatch(bakeCake( ${temp}));`;
   console.log(code);
   return code;
 };
-
 // JavaScript code generator for 'point_in_direction' block
 javascriptGenerator["point_in_direction"] = function (block) {
   const degrees = block.getFieldValue("DEGREES");
-  const code = `store.dispatch(pointInDirection(${degrees}));
-`;
+  const code = `store.dispatch(pointInDirection(${degrees}));`;
   console.log(code);
   return code;
 };
@@ -374,7 +349,6 @@ javascriptGenerator["glidesecstomenu"] = function (block) {
 };
 
 // JavaScript code generator for 'setxto' block
-
 
 // JavaScript code generator for 'setyto' block
 javascriptGenerator["setyto"] = function (block) {
